@@ -153,13 +153,14 @@ class ProductCategoryView(ListView):
 
     def get_categories(self):
         """
-        Return a list of the current category and it's ancestors
-        TODO: Should be cached as it's called twice.
+        Return a cached list of the current category and it's ancestors.
         """
-        if self.category is not None:
-            return self.category.get_descendants_and_self()
-        else:
-            return []
+        if not hasattr(self, '_descendants'):
+            if self.category is None:
+                self._descendants = []
+            else:
+                self._descendants = self.category.get_descendants_and_self()
+        return self._descendants
 
     def get_summary(self):
         """
