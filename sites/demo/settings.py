@@ -9,7 +9,14 @@ Notes:
 
 """
 
-import os
+import os,sys
+from os.path import abspath,dirname
+from path import path
+
+HERE = path(dirname(abspath(__file__)))
+SITES_ROOT = HERE.parent
+PORJ_ROOT = SITES_ROOT.parent
+sys.path.insert(0,PORJ_ROOT)
 
 # Django settings for oscar project.
 location = lambda x: os.path.join(
